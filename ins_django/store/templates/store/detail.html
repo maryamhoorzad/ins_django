@@ -1,0 +1,37 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+{% for pro in Product %}
+    <img src="./static/img/{{pro.id}}.png" class="right" alt="picture" >
+    <div>
+        <h1>{{pro.name}}</h1>
+        <h2>{{sous_titre}}</h2>
+        <h3>{{pro.brand}}</h3>
+    </div>
+    <div>
+        <p> {{pro.description}} </p>
+    </div>    
+{% endfor %}
+
+<!--<table>
+    <tr>
+        {% for pro in products %}
+        <th>name</th>
+        <td> {{ pro.name }}</td>
+    </tr>
+    <tr>
+        <th>price</th>
+        <td> {{ pro.price }}</td>
+    </tr>
+    <tr>
+        <th>desc</th>
+        <td> {{ pro.desc }}</td>
+    </tr>
+        {% endfor %}
+      
+    </table>      -->
+
+{% endblock %}
+
+
+ 
