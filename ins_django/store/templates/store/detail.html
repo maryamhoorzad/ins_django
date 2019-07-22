@@ -1,17 +1,16 @@
 {% extends 'store/base.html' %}
 {% block content %}
 
-{% for pro in Product %}
-    <img src="./static/img/{{pro.id}}.png" class="right" alt="picture" >
+    <img src="{{product.picture.url}}" class="right" alt="picture" >
     <div>
-        <h1>{{pro.name}}</h1>
-        <h2>{{sous_titre}}</h2>
-        <h3>{{pro.brand}}</h3>
+        <h1>{{product.name}}</h1>
+        <h2>{{product.sous_titre}}</h2>
+        <h3>{{product.brand}}</h3>
     </div>
     <div>
-        <p> {{pro.description}} </p>
+        <p> {{product.description}} </p>
     </div>    
-{% endfor %}
+
 
 <!--<table>
     <tr>

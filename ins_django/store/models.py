@@ -1,8 +1,10 @@
 from django.db import models
+from django.urls import reverse
+
 
 class Category(models.Model):
     name = models.CharField(max_length=30)
-    slug = models.SlugField()
+    slug = models.SlugField( default="cslug")
     picture = models.FileField(upload_to="static/product_pics/")
     parent = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE, related_name='children')
 
@@ -12,7 +14,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     def get_absolute_url(self):
-        return reverse('shop:product_list_by_category', args=[self.slug])
+        return reverse('productlist', args=[self.slug])
 
     def __str__(self):
         full_path = [self.name]
@@ -41,7 +43,7 @@ class Brand(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=30)
     sous_titre = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=100, db_index=True)
+    slug = models.SlugField(max_length=100, default="slug")
     description = models.TextField()
     create_date = models.DateTimeField(auto_now_add=True)
     picture = models.FileField(upload_to="static/product_pics/")
@@ -56,13 +58,13 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', args=[self.id, self.slug])
+        return reverse('productdetail', args=[self.id, self.slug])
 
     def get_cat_list(self):
         k = self.category
-        breadcrumb =["---"]
+        breadcrumb =["shop"]
         while k is not None:
-            breadcrumb.append(k.name)   #can i use slug instead of name ?
+            breadcrumb.append(k.slug)   #can i use slug instead of name ?
             k=k.parent
 
         for i in range(len(breadcrumb)-1):

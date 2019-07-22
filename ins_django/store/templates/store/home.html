@@ -8,10 +8,8 @@
 </form>
 
 <ul>
-{% for category in Category %}
-    {% if not category.parent %}
-        <li>{{ category.name }}</li>
-    {% endif %}
+{% for category in categories %}
+    <li>{{category.name}}</li>
 {% endfor %}
 </ul>
 

@@ -5,22 +5,24 @@ from .models import Category, Product, Brand
 
 def home_page(request, parent=None):
     categories = Category.objects.all()
-    for c in Category:
+    base_category = []
+    for c in Category.objects.all():
         if not c.parent:
-            top_categpry = Product.objects.filter(category=category)
-            
+              base_category.append(c)    
+
     context = {
-        'categories': top_categpry
+        'categories': base_category
     }
 
-    return render(request, 'store/product/home.html', context)
+    return render(request, 'store/home.html', context)
 
     
 
 def product_list(request, category_slug=None):
+    
     category = None
     categories = Category.objects.all()
-    # products = Product.objects.filter(available=True)
+    products = Product.objects.filter()
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = Product.objects.filter(category=category)
@@ -30,12 +32,13 @@ def product_list(request, category_slug=None):
         'categories': categories,
         'products': products
     }
-    return render(request, 'store/product/list.html', context)
+    return render(request, 'store/list.html', context)
 
 
-def product_detail(request, id, slug):
-    product = get_object_or_404(Product, id=id, slug=slug)
+def product_detail(request, id):
+    
+    product = get_object_or_404(Product, pk=id)
     context = {
         'product': product
     }
-    return render(request, 'store/product/detail.html', context)
+    return render(request, 'store/detail.html', context)
