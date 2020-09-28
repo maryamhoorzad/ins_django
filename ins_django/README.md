@@ -1,1 +1,1 @@
-django website for ins
+Django website for INS
